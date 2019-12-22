@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:id="@+id/semname"
+        android:layout_width="292dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="Enter your semester name"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/nextsem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/round_corner"
+        android:text="Next"
+        android:textColor="#070707"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/semname" />
+
+    <EditText
+        android:id="@+id/semdone"
+        android:layout_width="292dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="Enter number of periods"
+        android:inputType="number"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/nextdone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/round_corner"
+        android:text="Done"
+        android:textColor="#070707"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/semname" />
+
+    <LinearLayout
+        android:id="@+id/txtndspin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Select a day:-"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="389dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
+            android:scrollbarSize="15dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/table"
+        android:layout_width="385dp"
+        android:layout_height="449dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/backbtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/semdone">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/ed1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="#FFFFFF"
+                    android:textSize="36sp"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/ed2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textColor="#FFFFFF"
+                    android:textSize="36sp"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/ed3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center"
+                    android:text="3"
+                    android:textColor="#FFFFFF"
+                    android:textSize="36sp"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/ed4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center"
+                    android:text="4"
+                    android:textColor="#FFFFFF"
+                    android:textSize="36sp"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/ed5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center"
+                    android:text="5"
+                    android:textColor="#FFFFFF"
+                    android:textSize="36sp"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/ed6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center"
+                    android:text="6"
+                    android:textColor="#FFFFFF"
+                    android:textSize="36sp"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/ed7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center"
+                    android:text="7"
+                    android:textColor="#FFFFFF"
+                    android:textSize="36sp"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/ed8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center"
+                    android:text="8"
+                    android:textColor="#FFFFFF"
+                    android:textSize="36sp"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/s1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:ems="10"
+                        android:hint="Subject Name"
+                        android:inputType="textPersonName"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:visibility="invisible" />
+
+                    <EditText
+                        android:id="@+id/s2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:ems="10"
+                        android:hint="Subject Name"
+                        android:inputType="textPersonName"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:visibility="invisible" />
+
+                    <EditText
+                        android:id="@+id/s3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:ems="10"
+                        android:hint="Subject Name"
+                        android:inputType="textPersonName"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:visibility="invisible" />
+
+                    <EditText
+                        android:id="@+id/s4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:ems="10"
+                        android:hint="Subject Name"
+                        android:inputType="textPersonName"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:visibility="invisible" />
+
+                    <EditText
+                        android:id="@+id/s5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:ems="10"
+                        android:hint="Subject Name"
+                        android:inputType="textPersonName"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:visibility="invisible" />
+
+                    <EditText
+                        android:id="@+id/s6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:ems="10"
+                        android:hint="Subject Name"
+                        android:inputType="textPersonName"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:visibility="invisible" />
+
+                    <EditText
+                        android:id="@+id/s7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:ems="10"
+                        android:hint="Subject Name"
+                        android:inputType="textPersonName"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:visibility="invisible" />
+
+                    <EditText
+                        android:id="@+id/s8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:ems="10"
+                        android:hint="Subject Name"
+                        android:inputType="textPersonName"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:visibility="invisible" />
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/backbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="276dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/round_corner"
+        android:text="Back"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/savebtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/round_corner"
+        android:text="Save"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/table"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/semtxtname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
