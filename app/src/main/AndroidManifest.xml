@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.attendanceplaystore">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -12,21 +12,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Dashboard"
-            android:theme="@style/AppTheme.DarkActionBar"></activity>
-        <activity android:name=".login"
-            />
+        <activity android:name=".ShowAttendence"></activity>
+        <activity android:name=".AddAttendence" />
+        <activity
+            android:name=".Dashboard"
+            android:theme="@style/AppTheme.DarkActionBar" />
+        <activity android:name=".login" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-4618591388539179~9038242806" />
 
-        <activity android:name=".splashscreen"
-            />
-        <activity android:name=".signup"
-            />
-        <activity android:name=".MainActivity"
-            >
+        <activity android:name=".splashscreen" />
+        <activity android:name=".signup" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

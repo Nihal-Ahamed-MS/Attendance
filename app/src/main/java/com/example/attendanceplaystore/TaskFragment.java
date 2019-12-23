@@ -1,6 +1,7 @@
 package com.example.attendanceplaystore;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -51,7 +50,7 @@ public class TaskFragment extends Fragment  {
         datebtn = view.findViewById(R.id.datebtn);
         addbtn = view.findViewById(R.id.addbtn);
         showbtn = view.findViewById(R.id.showbtn);
-        datetxt = view.findViewById(R.id.datetxt);
+        datetxt = view.findViewById(R.id.showdatetxt);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -85,16 +84,41 @@ public class TaskFragment extends Fragment  {
             Date date = new Date(year,monthOfYear,dayOfMonth-1);
             dayofTheweek = simpledateformat.format(date);
 
+            mdatabase.child("my_users").child(user.getUid()).child("days").child(currentdate).setValue(dayofTheweek).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(getActivity(),"daySaved",Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
             addbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mdatabase.child("my_users").child(user.getUid()).child("Dates").child(currentdate).setValue(dayofTheweek).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(getActivity(),"saved",Toast.LENGTH_LONG).show();
+                           if(task.isSuccessful()){
+
+                           }
                         }
                     });
+                    Intent intent = new Intent(getActivity(),AddAttendence.class);
+                    intent.putExtra("currentDate",currentdate);
+                    intent.putExtra("currentDay",dayofTheweek);
 
+                    startActivity(intent);
+                }
+
+            });
+            showbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(),ShowAttendence.class);
+                    intent.putExtra("currentDate",currentdate);
+                    intent.putExtra("currentDay",dayofTheweek);
+                    addbtn.setText(currentdate);
+                    startActivity(intent);
                 }
             });
 

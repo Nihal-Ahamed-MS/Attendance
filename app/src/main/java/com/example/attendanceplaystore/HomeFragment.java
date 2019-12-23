@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,22 +30,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class HomeFragment extends Fragment {
 
     private TextView txt;
     private EditText es1,es2,es3,es4,es5,es6,es7,es8;
     private TextView e1,e2,e3,e4,e5,e6,e7,e8;;
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
     private Spinner spinner;
     private ArrayAdapter<CharSequence> adapter;
     private DatabaseReference databaseReference;
     private String days;
 
-    private ArrayList<String> subject= new ArrayList<>();
-    private ArrayList<String> period = new ArrayList<>();
+    private ArrayList<String> subjectlist= new ArrayList<>();
+    private ArrayList<String> periodlist = new ArrayList<>();
 
-    private ListView periodnum,subjectnum;
+    private ListView totperiods,totsubjects;
 
 
     @Nullable
@@ -70,10 +74,11 @@ public class HomeFragment extends Fragment {
 //        es7=view.findViewById(R.id.es7);
 //        es8=view.findViewById(R.id.es8);
 
-        periodnum = view.findViewById(R.id.periodnum);
-        subjectnum = view.findViewById(R.id.subjectnum);
+        totperiods = (ListView) view.findViewById(R.id.totperiods);
+        totsubjects = (ListView) view.findViewById(R.id.totsubjects);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        final ArrayAdapter<String> periodarray = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_list_item_1, period){
+        final ArrayAdapter<String> periodarrays = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_list_item_1, periodlist){
 
             @NonNull
             @Override
@@ -88,9 +93,9 @@ public class HomeFragment extends Fragment {
             }
 
         };
-        periodnum.setAdapter(periodarray);
+        totperiods.setAdapter(periodarrays);
 
-        final ArrayAdapter<String> subjectarray = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_list_item_1, subject){
+        final ArrayAdapter<String> subjectarrays = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_list_item_1, subjectlist){
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -103,7 +108,7 @@ public class HomeFragment extends Fragment {
                 return view;
             }
         };
-        subjectnum.setAdapter(subjectarray);
+        totsubjects.setAdapter(subjectarrays);
 
         txt = view.findViewById(R.id.txt);
 
@@ -117,7 +122,7 @@ public class HomeFragment extends Fragment {
 
 
 
-        String [] values = {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
+        final String [] values = {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
         Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(), R.layout.spinner_item, values);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -131,51 +136,50 @@ public class HomeFragment extends Fragment {
                 //Toast.makeText(getActivity(),list.getItemIdAtPosition(position)+"",Toast.LENGTH_LONG).show();
                 days = list.getItemIdAtPosition(position)+"";
                 if(days.equals("0")){
-                    subject.clear();
-                    period.clear();
+                    subjectlist.clear();
+                    periodlist.clear();
                     days="Monday";
                 }
                 else if(days.equals("1")){
-                    subject.clear();
-                    period.clear();
+                    subjectlist.clear();
+                    periodlist.clear();
 
                     days="Tuesday";
                 }
                 else if(days.equals("2")){
-                    subject.clear();
-                    period.clear();
+                    subjectlist.clear();
+                    periodlist.clear();
 
                     days="Wednesday";
                 }
                 else if(days.equals("3")){
-                    subject.clear();
-                    period.clear();
+                    subjectlist.clear();
+                    periodlist.clear();
 
                     days="Thursday";
                 }
                 else if(days.equals("4")){
-                    subject.clear();
-                    period.clear();
+                    subjectlist.clear();
+                    periodlist.clear();
 
                     days="Friday";
                 }
                 else if(days.equals("5")){
-                    subject.clear();
-                    period.clear();
-
+                    subjectlist.clear();
+                    periodlist.clear();
                     days="Saturday";
                 }
-                databaseReference = FirebaseDatabase.getInstance().getReference().child("my_users").child(user.getUid()).child(days);
-                databaseReference.addChildEventListener(new ChildEventListener() {
+
+                databaseReference.child("my_users").child(user.getUid()).child(days).addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
                         String value = dataSnapshot.getValue(String.class);
+                        subjectlist.add(value);
+                        subjectarrays.notifyDataSetChanged();
                         String key = dataSnapshot.getKey();
-                        period.add(key);
-                        subject.add(value);
-                        periodarray.notifyDataSetChanged();
-                        subjectarray.notifyDataSetChanged();
+                        periodlist.add(key);
+                        periodarrays.notifyDataSetChanged();
 
                     }
 
@@ -199,6 +203,7 @@ public class HomeFragment extends Fragment {
 
                     }
                 });
+
 
             }
 

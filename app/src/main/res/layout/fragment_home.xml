@@ -109,18 +109,16 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ListView
-            android:id="@+id/periodnum"
+            android:id="@+id/totperiods"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
         <ListView
-            android:id="@+id/subjectnum"
+            android:id="@+id/totsubjects"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:foregroundGravity="center" />
+            android:layout_weight="1" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
