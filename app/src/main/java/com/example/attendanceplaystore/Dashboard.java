@@ -39,6 +39,7 @@ public class Dashboard extends AppCompatActivity {
             switch(menuItem.getItemId()){
                 case R.id.home:
                     setTitle("Home");
+
                     selectedfragment = new HomeFragment();
                     break;
                 case R.id.add:

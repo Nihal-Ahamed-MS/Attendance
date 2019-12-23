@@ -21,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/complete"
         android:layout_width="395dp"
         android:layout_height="585dp"
         android:layout_marginStart="8dp"

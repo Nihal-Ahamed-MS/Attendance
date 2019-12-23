@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,9 @@ public class ShowAttendence extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ListView totperiods,totsubjects,status;
     private TextView datetxt,holiday;
+    private LinearLayout complete;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +49,13 @@ public class ShowAttendence extends AppCompatActivity {
         status = findViewById(R.id.status);
         datetxt = findViewById(R.id.showdatetxt);
         holiday = findViewById(R.id.holidaytxt);
+        complete = findViewById(R.id.complete);
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
         pickedIntent();
         calls();
+        complete.setVisibility(View.INVISIBLE);
 
 
 
@@ -116,6 +122,7 @@ public class ShowAttendence extends AppCompatActivity {
                 String key = dataSnapshot.getKey();
                 periodlist.add(key);
                 periodarrays.notifyDataSetChanged();
+                holidaycalls();
 
             }
 
@@ -151,6 +158,7 @@ public class ShowAttendence extends AppCompatActivity {
                 }
                 statuslist.add(values);
                 statusarray.notifyDataSetChanged();
+
 
             }
 
@@ -189,21 +197,38 @@ public class ShowAttendence extends AppCompatActivity {
     private void calls(){
         holiday.setVisibility(View.INVISIBLE);
     }
-//    private void holidaycalls(){
-//        databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                String holidayValue = dataSnapshot.getValue(String.class);
-//                if(holidayValue.equals("Holiday")){
-//                    holiday.setVisibility(View.VISIBLE);
-//                    return;
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
+    private void holidaycalls(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                String holidayValue = dataSnapshot.getValue(String.class);
+                if(holidayValue.equals("Holiday")){
+                    complete.setVisibility(View.INVISIBLE);
+                    holiday.setVisibility(View.VISIBLE);
+                    return;
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 }
