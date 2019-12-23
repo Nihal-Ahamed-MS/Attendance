@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -44,13 +45,14 @@ public class AddAttendence extends AppCompatActivity {
     private String days,currentdate,day;
     private int num;
     private TextView datetxt;
-    private RadioButton ones,onen,twos,twon,threes,threen,fours,fourn,fives,fiven,sixs,sixn,sevens,sevenn,holiday,eights,eightn;
+    private RadioButton ones,onen,twos,twon,threes,threen,fours,fourn,fives,fiven,sixs,sixn,sevens,sevenn,eights,eightn;
     private RadioGroup r1,r2,r3,r4,r5,r6,r7,r8;
     private String[] id,rsid,rnid;
     private int temp, rstemp,rntemp;
     private Button addsavebtn;
     private final DatabaseReference mdatabase = FirebaseDatabase.getInstance().getReference();
-
+    private Button btn;
+    private CheckBox holiday;
 
 
     @Override
@@ -79,7 +81,7 @@ public class AddAttendence extends AppCompatActivity {
         eights = findViewById(R.id.eights);
         eightn = findViewById(R.id.eightn);
 
-        holiday=findViewById(R.id.addholiday);
+        holiday=findViewById(R.id.checkBox);
         r1=findViewById(R.id.r1);
         r2=findViewById(R.id.r2);
         r3=findViewById(R.id.r3);
@@ -88,17 +90,19 @@ public class AddAttendence extends AppCompatActivity {
         r6=findViewById(R.id.r6);
         r7=findViewById(R.id.r7);
         r8=findViewById(R.id.r8);
+
+        btn = findViewById(R.id.btn);
         addsavebtn = findViewById(R.id.addsavebtn);
 
         final RadioGroup[] radio = new RadioGroup[10];
-        final RadioButton[] radioS = new RadioButton[10];
-        final RadioButton[] radioN = new RadioButton[10];
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
 
         pickedIntent();
-        datetxt.setText(day);
+        datetxt.setText(currentdate);
+        calls();
 
         final ArrayAdapter<String> periodarray = new ArrayAdapter<String>(AddAttendence.this,android.R.layout.simple_list_item_1, period){
 
@@ -137,150 +141,129 @@ public class AddAttendence extends AppCompatActivity {
         final FirebaseUser user = mAuth.getCurrentUser();
 
 
-        databaseReference.child("my_users").child(user.getUid()).child(day).addChildEventListener(new ChildEventListener() {
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            public void onClick(View v) {
+                databaseReference.child("my_users").child(user.getUid()).child(day).addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                String value = dataSnapshot.getValue(String.class);
-                subject.add(value);
-                subjectarray.notifyDataSetChanged();
-                String key = dataSnapshot.getKey();
-                period.add(key);
-                periodarray.notifyDataSetChanged();
-
-
-                String list = listperiod.getAdapter().getCount()+"";
-                num=Integer.parseInt(list+"");
-                id = new String[]{"r1","r2","r3","r4","r5","r6","r7","r8"};
+                        String value = dataSnapshot.getValue(String.class);
+                        subject.add(value);
+                        subjectarray.notifyDataSetChanged();
+                        String key = dataSnapshot.getKey();
+                        period.add(key);
+                        periodarray.notifyDataSetChanged();
 
 
-                for(int i=0; i<num; i++) {
-                    temp = getResources().getIdentifier(id[i], "id", AddAttendence.this.getPackageName());
-                    radio[i] = (RadioGroup) findViewById(temp);
-                    radio[i].setVisibility(View.VISIBLE);
-                }
-            }
+                        String list = listperiod.getAdapter().getCount()+"";
+                        num=Integer.parseInt(list+"");
+                        id = new String[]{"r1","r2","r3","r4","r5","r6","r7","r8"};
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-            }
+                        for(int i=0; i<num; i++) {
+                            temp = getResources().getIdentifier(id[i], "id", AddAttendence.this.getPackageName());
+                            radio[i] = (RadioGroup) findViewById(temp);
+                            radio[i].setVisibility(View.VISIBLE);
+                        }
+                    }
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-            }
+                    }
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
-            }
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                aftercalls();
             }
         });
 
-//        databaseReference.child("my_users").child(user.getUid()).child(day).addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//                String value = dataSnapshot.getValue(String.class);
-//                String key = dataSnapshot.getKey();
-//                period.add(key);
-//                subject.add(value);
-//                periodarray.notifyDataSetChanged();
-//                subjectarray.notifyDataSetChanged();
-//
 
-//
-//
-//            }
-//
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
 
-//        id = new String[]{"r1","r2","r3","r4","r5","r6","r7","r8"};
-//
-//
-//                for(int i=0; i<num; i++) {
-//                    temp = getResources().getIdentifier(id[i], "id", AddAttendence.this.getPackageName());
-//                    radio[i] = (RadioGroup) findViewById(temp);
-//                    radio[i].setVisibility(View.VISIBLE);
-//                }
 
-//        addsavebtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //databaseReference.child("my_users").child(user.getUid()).child(currentdate).setValue()
-//
-////                String list = listperiod.getAdapter().getCount()+"";
-////                num=Integer.parseInt(list+"");
-//                id = new String[]{"r1","r2","r3","r4","r5","r6","r7","r8"};
-//                rsid = new String[]{"ones","twos","threes","fours","fives","sixs","sevens","eights"};
-//                rnid = new String[]{"onen","twon","threen","fourn","fiven","sixn","sevenn","eightn"};
-//
-//
-//                for(int i=0; i<8; i++) {
-//                    temp = getResources().getIdentifier(id[i], "id", AddAttendence.this.getPackageName());
-//                    radio[i] = (RadioGroup) findViewById(temp);
-//                    radio[i].setVisibility(View.VISIBLE);
-//
-//                    rstemp = getResources().getIdentifier(rsid[i],"rsid",AddAttendence.this.getPackageName());
-//                    radioS[i] = (RadioButton) findViewById(rstemp);
-//
-//                    rntemp = getResources().getIdentifier(rnid[i],"rnid",AddAttendence.this.getPackageName());
-//                    radioN[i] = (RadioButton) findViewById(rntemp);
-//
-//                    //radioN[i].setText("hi");
-//
-//                    try {
-//                        if (radioS[i].isChecked()) {
-//                            databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child(i + "").setValue("Present");
-//                        } else if (radioN[i].isChecked()) {
-//                            databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child(i + "").setValue("Absent");
-//                        } else {
-//                            Toast.makeText(AddAttendence.this, "Please select all buttons", Toast.LENGTH_LONG).show();
-//                        }
-//                    }catch (Exception e){
-//                        Toast.makeText(AddAttendence.this,e.getMessage(),Toast.LENGTH_LONG).show();
-//                    }
-//
-//
-//
-//                }
-////
-////                if(ones.isChecked()){
-////                    Toast.makeText(Addactivity.this, "hi", Toast.LENGTH_SHORT).show();
-////                }
-////                else if(onen.isChecked()){
-////                    Toast.makeText(Addactivity.this,"hello",Toast.LENGTH_LONG).show();
-////                }
-//
-//
-//
-//
-//            }
-//        });
+        addsavebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(holiday.isChecked()){
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("1").setValue("Holiday");
+                    return;
+                }
+
+                if(ones.isChecked()){
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("1").setValue("Present");
+
+                }
+                else if(onen.isChecked()){
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("1").setValue("Absent");
+                }
+                if(twos.isChecked()){
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("2").setValue("Present");
+
+                }
+                else if(twon.isChecked()){
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("2").setValue("Absent");
+
+                }
+                if(threes.isChecked()){
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("3").setValue("Present");
+                }
+                else if(threes.isChecked()){
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("3").setValue("Absent");
+
+                }
+                if(fours.isChecked()){
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("4").setValue("Present");
+                }
+                else if(fourn.isChecked()){
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("4").setValue("Absent");
+
+                }
+                if(fives.isChecked()){
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("5").setValue("Present");
+                }
+                else if(fiven.isChecked()){
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("5").setValue("Absent");
+
+                }
+                if(sixs.isChecked()){
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("6").setValue("Present");
+                }
+                else if(sixn.isChecked()){
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("6").setValue("Absent");
+
+                }
+                if(sevens.isChecked()){
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("7").setValue("Present");
+                }
+                else if(sevenn.isChecked()){
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("7").setValue("Absent");
+
+                }
+                if(eights.isChecked()){
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("8").setValue("Present");
+                }
+                else if(eightn.isChecked()){
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("8").setValue("Absent");
+
+                }
+
+            }
+        });
 
     }
 
@@ -288,6 +271,19 @@ public class AddAttendence extends AppCompatActivity {
         Intent intent = getIntent();
         currentdate = intent.getStringExtra("currentDate");
         day = intent.getStringExtra("currentDay");
+    }
+    private void calls(){
+
+        btn.setVisibility(View.VISIBLE);
+        addsavebtn.setVisibility(View.GONE);
+        holiday.setVisibility(View.GONE);
+
+    }
+    private void aftercalls(){
+        btn.setVisibility(View.INVISIBLE);
+        addsavebtn.setVisibility(View.VISIBLE);
+        holiday.setVisibility(View.VISIBLE);
+
     }
 
 }

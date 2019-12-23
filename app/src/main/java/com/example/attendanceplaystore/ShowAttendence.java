@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -43,11 +44,12 @@ public class ShowAttendence extends AppCompatActivity {
         totsubjects = findViewById(R.id.sub);
         status = findViewById(R.id.status);
         datetxt = findViewById(R.id.showdatetxt);
-        holiday = findViewById(R.id.showholiday);
+        holiday = findViewById(R.id.holidaytxt);
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
         pickedIntent();
+        calls();
 
 
 
@@ -142,7 +144,11 @@ public class ShowAttendence extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                String values = dataSnapshot.getKey();
+                String values = dataSnapshot.getValue(String.class);
+                if(values.equals("Holiday")){
+                    holiday.setVisibility(View.VISIBLE);
+                    return;
+                }
                 statuslist.add(values);
                 statusarray.notifyDataSetChanged();
 
@@ -176,14 +182,28 @@ public class ShowAttendence extends AppCompatActivity {
         Intent intent = getIntent();
         currentdate = intent.getStringExtra("currentDate");
         day = intent.getStringExtra("currentDay");
-
-
-        if(currentdate==null){
-            Toast.makeText(ShowAttendence.this,"null",Toast.LENGTH_LONG).show();
-            return;
-        }
         datetxt.setText(currentdate);
-        holiday.setText(day);
+
 
     }
+    private void calls(){
+        holiday.setVisibility(View.INVISIBLE);
+    }
+//    private void holidaycalls(){
+//        databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                String holidayValue = dataSnapshot.getValue(String.class);
+//                if(holidayValue.equals("Holiday")){
+//                    holiday.setVisibility(View.VISIBLE);
+//                    return;
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
 }
