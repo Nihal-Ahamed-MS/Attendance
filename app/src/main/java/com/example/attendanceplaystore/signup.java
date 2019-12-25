@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -38,7 +40,7 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
     private EditText user,email,pass;
     private Button signup;
     private TextView login;
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
 
     GoogleApiClient mGoogleSignInClient;
     SignInButton Gsign;
@@ -65,6 +67,16 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
         user = findViewById(R.id.username);
         email = findViewById(R.id.signupemail);
         pass = findViewById(R.id.signuppass);
+        pass.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    onClick(signup);
+                }
+                return false;
+            }
+        });
         signup = findViewById(R.id.signupbtn);
         login = findViewById(R.id.logintxt);
         Gsign = findViewById(R.id.sign_in_button);
@@ -134,7 +146,7 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
         String name = user.getText().toString().trim();
 
         if (name.isEmpty()){
-            user.setError("Name is required");
+            user.setError("A Name is required");
             user.requestFocus();
             return;
         }
@@ -158,16 +170,15 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             Log.d("Tag","User profile updated");
-                                            Toast.makeText(signup.this, "saved", Toast.LENGTH_LONG).show();
                                         }
                                         else{
-                                            Toast.makeText(signup.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                                            Toast.makeText(signup.this,"Please try again later!",Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 });
                             }
 
-                            //Toast.makeText(signup.this, "looged in",Toast.LENGTH_LONG).show();
+                            transistiontodashboard();
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -222,7 +233,7 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
 
                 if(task.isSuccessful()){
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(signup.this, "looged in",Toast.LENGTH_LONG).show();
+
                     FirebaseDatabase.getInstance().getReference().child("my_users").child(task.getResult().getUser().getUid()).child("email").setValue(email.getText().toString());
 
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
@@ -235,21 +246,20 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Log.d("Tag","User profile updated");
-                                    Toast.makeText(signup.this, "saved", Toast.LENGTH_LONG).show();
                                 }
                                 else{
-                                    Toast.makeText(signup.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                                    Toast.makeText(signup.this,"Please try again later!",Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
                     }
 
-                    //transistiontodashboard();
+                    transistiontodashboard();
 
                 }
 
                 else {
-                    Toast.makeText(signup.this,task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(signup.this,"Please try again later", Toast.LENGTH_LONG).show();
                 }
 
 
@@ -258,7 +268,6 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
         });
 
     }
-
 
 
     private void transistiontodashboard(){
@@ -291,6 +300,17 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+    public void rootlayout(View view){
 
+        try{
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
 
 }

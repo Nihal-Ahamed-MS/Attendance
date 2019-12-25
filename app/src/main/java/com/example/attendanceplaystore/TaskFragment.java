@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,12 +16,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,6 +39,7 @@ public class TaskFragment extends Fragment  {
     private TextView datetxt;
     private Button addbtn,showbtn,datebtn;
     private FirebaseAuth mAuth;
+    private ProgressBar progressBar;
 
     private String currentdate;
     private String dayofTheweek;
@@ -39,11 +47,13 @@ public class TaskFragment extends Fragment  {
     private FirebaseUser user;
     private final DatabaseReference mdatabase = FirebaseDatabase.getInstance().getReference();
 
+    private AdView adView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_task,container,false);
+        progressBar= (ProgressBar) view.findViewById(R.id.progressbar);
 
 
 
@@ -51,13 +61,16 @@ public class TaskFragment extends Fragment  {
         addbtn = view.findViewById(R.id.addbtn);
         showbtn = view.findViewById(R.id.showbtn);
         datetxt = view.findViewById(R.id.showdatetxt);
+        adView = view.findViewById(R.id.adView);
 
 
         mAuth = FirebaseAuth.getInstance();
 
         user = mAuth.getCurrentUser();
 
-
+        MobileAds.initialize(getActivity(),"ca-app-pub-3940256099942544/6300978111");
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+        adView.loadAd(adRequest);
         datebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,41 +97,53 @@ public class TaskFragment extends Fragment  {
             Date date = new Date(year,monthOfYear,dayOfMonth-1);
             dayofTheweek = simpledateformat.format(date);
 
-            mdatabase.child("my_users").child(user.getUid()).child("days").child(currentdate).setValue(dayofTheweek).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
-                        Toast.makeText(getActivity(),"daySaved",Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
+
+
             addbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mdatabase.child("my_users").child(user.getUid()).child("Dates").child(currentdate).setValue(dayofTheweek).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                           if(task.isSuccessful()){
-
-                           }
-                        }
-                    });
+                    progressBar.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
+                    mdatabase.child("my_users").child(user.getUid()).child("Dates").child(currentdate).setValue(dayofTheweek);
                     Intent intent = new Intent(getActivity(),AddAttendence.class);
                     intent.putExtra("currentDate",currentdate);
                     intent.putExtra("currentDay",dayofTheweek);
-
                     startActivity(intent);
+                    progressBar.setVisibility(View.INVISIBLE);
+
                 }
 
             });
             showbtn.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(),ShowAttendence.class);
-                    intent.putExtra("currentDate",currentdate);
-                    intent.putExtra("currentDay",dayofTheweek);
-                    addbtn.setText(currentdate);
-                    startActivity(intent);
+                    progressBar.setVisibility(View.VISIBLE);
+
+                    mdatabase.child("my_users").child(user.getUid()).child("Dates").child(currentdate).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.hasChild(currentdate)){
+                                Intent intent = new Intent(getActivity(),ShowAttendence.class);
+                                intent.putExtra("currentDate",currentdate);
+                                intent.putExtra("currentDay",dayofTheweek);
+                                startActivity(intent);
+                                progressBar.setVisibility(View.GONE);
+                            }
+                            else{
+
+                                Toast.makeText(getActivity(),"Please select a valid date, since no details available for this date.",Toast.LENGTH_LONG).show();
+                                progressBar.setVisibility(View.GONE);
+                                return;
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
                 }
             });
 

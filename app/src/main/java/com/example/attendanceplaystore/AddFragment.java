@@ -119,11 +119,9 @@ public class AddFragment extends Fragment {
                     return;
                 }
 
-                //String[] id,idd;
                 id = new String[]{"ed1","ed2","ed3","ed4","ed5","ed6","ed7","ed8"};
                 idd = new String[]{"s1","s2","s3","s4","s5","s6","s7","s8"};
 
-                //int tempp, temp;
                 for(int i=0; i<num; i++){
                     temp = getResources().getIdentifier(id[i], "id", getActivity().getPackageName());
                     text[i] = (TextView)view.findViewById(temp);
@@ -148,7 +146,6 @@ public class AddFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 day = parent.getItemIdAtPosition(position)+"";
-                Toast.makeText(getActivity(),parent.getItemIdAtPosition(position)+"",Toast.LENGTH_LONG).show();
                 if(day.equals("0")){
                     day="Monday";
                 }
@@ -243,10 +240,9 @@ public class AddFragment extends Fragment {
                 semtxtname.setVisibility(View.INVISIBLE);
                 savebtn.setVisibility(View.INVISIBLE);
                 backbtn.setVisibility(View.INVISIBLE);
-                semnext.getText().clear();
                 semdone.getText().clear();
-                semnext.setVisibility(View.VISIBLE);
-                next.setVisibility(View.VISIBLE);
+                semdone.setVisibility(View.VISIBLE);
+                done.setVisibility(View.VISIBLE);
 
             }
         });

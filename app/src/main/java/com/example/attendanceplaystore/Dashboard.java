@@ -21,6 +21,7 @@ public class Dashboard extends AppCompatActivity {
 
         setTitle("Home");
 
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
@@ -39,7 +40,6 @@ public class Dashboard extends AppCompatActivity {
             switch(menuItem.getItemId()){
                 case R.id.home:
                     setTitle("Home");
-
                     selectedfragment = new HomeFragment();
                     break;
                 case R.id.add:

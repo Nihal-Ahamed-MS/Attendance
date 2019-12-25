@@ -16,6 +16,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -37,6 +40,7 @@ public class ShowAttendence extends AppCompatActivity {
     private ListView totperiods,totsubjects,status;
     private TextView datetxt,holiday;
     private LinearLayout complete;
+    private AdView adView;
 
 
     @Override
@@ -51,11 +55,17 @@ public class ShowAttendence extends AppCompatActivity {
         holiday = findViewById(R.id.holidaytxt);
         complete = findViewById(R.id.complete);
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        adView = (AdView) findViewById(R.id.adView);
+        MobileAds.initialize(ShowAttendence.this,"ca-app-pub-3940256099942544/6300978111");
 
+
+
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+        adView.loadAd(adRequest);
 
         pickedIntent();
         calls();
-        complete.setVisibility(View.INVISIBLE);
+        complete.setVisibility(View.VISIBLE);
 
 
 
@@ -112,9 +122,12 @@ public class ShowAttendence extends AppCompatActivity {
         final FirebaseUser user = mAuth.getCurrentUser();
 
 
+
+
         databaseReference.child("my_users").child(user.getUid()).child(day).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
 
                 String value = dataSnapshot.getValue(String.class);
                 subjectlist.add(value);

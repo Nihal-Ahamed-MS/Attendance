@@ -102,11 +102,11 @@
     <LinearLayout
         android:id="@+id/table"
         android:layout_width="385dp"
-        android:layout_height="449dp"
+        android:layout_height="200dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="40dp"
         android:orientation="horizontal"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/backbtn"
@@ -115,223 +115,231 @@
         app:layout_constraintTop_toBottomOf="@+id/semdone">
 
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/ed1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:gravity="center"
-                    android:text="1"
-                    android:textColor="#FFFFFF"
-                    android:textSize="36sp"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:id="@+id/ed2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:gravity="center"
-                    android:text="2"
-                    android:textColor="#FFFFFF"
-                    android:textSize="36sp"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:id="@+id/ed3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:gravity="center"
-                    android:text="3"
-                    android:textColor="#FFFFFF"
-                    android:textSize="36sp"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:id="@+id/ed4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:gravity="center"
-                    android:text="4"
-                    android:textColor="#FFFFFF"
-                    android:textSize="36sp"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:id="@+id/ed5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:gravity="center"
-                    android:text="5"
-                    android:textColor="#FFFFFF"
-                    android:textSize="36sp"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:id="@+id/ed6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:gravity="center"
-                    android:text="6"
-                    android:textColor="#FFFFFF"
-                    android:textSize="36sp"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:id="@+id/ed7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:gravity="center"
-                    android:text="7"
-                    android:textColor="#FFFFFF"
-                    android:textSize="36sp"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:id="@+id/ed8"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:gravity="center"
-                    android:text="8"
-                    android:textColor="#FFFFFF"
-                    android:textSize="36sp"
-                    android:visibility="invisible" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/s1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:ems="10"
-                        android:hint="Subject Name"
-                        android:inputType="textPersonName"
-                        android:textColor="#FFFFFF"
-                        android:textColorHint="#FFFFFF"
-                        android:visibility="invisible" />
 
-                    <EditText
-                        android:id="@+id/s2"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:ems="10"
-                        android:hint="Subject Name"
-                        android:inputType="textPersonName"
-                        android:textColor="#FFFFFF"
-                        android:textColorHint="#FFFFFF"
-                        android:visibility="invisible" />
+                        android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/s3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:ems="10"
-                        android:hint="Subject Name"
-                        android:inputType="textPersonName"
-                        android:textColor="#FFFFFF"
-                        android:textColorHint="#FFFFFF"
-                        android:visibility="invisible" />
+                        <TextView
+                            android:id="@+id/ed1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:gravity="center"
+                            android:text="1"
+                            android:textColor="#FFFFFF"
+                            android:textSize="36sp"
+                            android:visibility="invisible" />
 
-                    <EditText
-                        android:id="@+id/s4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:ems="10"
-                        android:hint="Subject Name"
-                        android:inputType="textPersonName"
-                        android:textColor="#FFFFFF"
-                        android:textColorHint="#FFFFFF"
-                        android:visibility="invisible" />
+                        <TextView
+                            android:id="@+id/ed2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:gravity="center"
+                            android:text="2"
+                            android:textColor="#FFFFFF"
+                            android:textSize="36sp"
+                            android:visibility="invisible" />
 
-                    <EditText
-                        android:id="@+id/s5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:ems="10"
-                        android:hint="Subject Name"
-                        android:inputType="textPersonName"
-                        android:textColor="#FFFFFF"
-                        android:textColorHint="#FFFFFF"
-                        android:visibility="invisible" />
+                        <TextView
+                            android:id="@+id/ed3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:gravity="center"
+                            android:text="3"
+                            android:textColor="#FFFFFF"
+                            android:textSize="36sp"
+                            android:visibility="invisible" />
 
-                    <EditText
-                        android:id="@+id/s6"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:ems="10"
-                        android:hint="Subject Name"
-                        android:inputType="textPersonName"
-                        android:textColor="#FFFFFF"
-                        android:textColorHint="#FFFFFF"
-                        android:visibility="invisible" />
+                        <TextView
+                            android:id="@+id/ed4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:gravity="center"
+                            android:text="4"
+                            android:textColor="#FFFFFF"
+                            android:textSize="36sp"
+                            android:visibility="invisible" />
 
-                    <EditText
-                        android:id="@+id/s7"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:ems="10"
-                        android:hint="Subject Name"
-                        android:inputType="textPersonName"
-                        android:textColor="#FFFFFF"
-                        android:textColorHint="#FFFFFF"
-                        android:visibility="invisible" />
+                        <TextView
+                            android:id="@+id/ed5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:gravity="center"
+                            android:text="5"
+                            android:textColor="#FFFFFF"
+                            android:textSize="36sp"
+                            android:visibility="invisible" />
 
-                    <EditText
-                        android:id="@+id/s8"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:ems="10"
-                        android:hint="Subject Name"
-                        android:inputType="textPersonName"
-                        android:textColor="#FFFFFF"
-                        android:textColorHint="#FFFFFF"
-                        android:visibility="invisible" />
+                        <TextView
+                            android:id="@+id/ed6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:gravity="center"
+                            android:text="6"
+                            android:textColor="#FFFFFF"
+                            android:textSize="36sp"
+                            android:visibility="invisible" />
+
+                        <TextView
+                            android:id="@+id/ed7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:gravity="center"
+                            android:text="7"
+                            android:textColor="#FFFFFF"
+                            android:textSize="36sp"
+                            android:visibility="invisible" />
+
+                        <TextView
+                            android:id="@+id/ed8"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:gravity="center"
+                            android:text="8"
+                            android:textColor="#FFFFFF"
+                            android:textSize="36sp"
+                            android:visibility="invisible" />
+                    </LinearLayout>
 
                 </LinearLayout>
-            </ScrollView>
-        </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/s1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:ems="10"
+                            android:hint="         Subject Name"
+                            android:inputType="textPersonName"
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#A39A9A"
+                            android:visibility="invisible" />
+
+                        <EditText
+                            android:id="@+id/s2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:ems="10"
+                            android:hint="         Subject Name"
+                            android:inputType="textPersonName"
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#A39A9A"
+                            android:visibility="invisible" />
+
+                        <EditText
+                            android:id="@+id/s3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:ems="10"
+                            android:hint="         Subject Name"
+                            android:inputType="textPersonName"
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#A39A9A"
+                            android:visibility="invisible" />
+
+                        <EditText
+                            android:id="@+id/s4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:ems="10"
+                            android:hint="         Subject Name"
+                            android:inputType="textPersonName"
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#A39A9A"
+                            android:visibility="invisible" />
+
+                        <EditText
+                            android:id="@+id/s5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:ems="10"
+                            android:hint="         Subject Name"
+                            android:inputType="textPersonName"
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#A39A9A"
+                            android:visibility="invisible" />
+
+                        <EditText
+                            android:id="@+id/s6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:ems="10"
+                            android:hint="         Subject Name"
+                            android:inputType="textPersonName"
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#A39A9A"
+                            android:visibility="invisible" />
+
+                        <EditText
+                            android:id="@+id/s7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:ems="10"
+                            android:hint="         Subject Name"
+                            android:inputType="textPersonName"
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#A39A9A"
+                            android:visibility="invisible" />
+
+                        <EditText
+                            android:id="@+id/s8"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:ems="10"
+                            android:hint="         Subject Name"
+                            android:inputType="textPersonName"
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#A39A9A"
+                            android:visibility="invisible" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
     <Button
@@ -340,7 +348,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="276dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/round_corner"
         android:text="Back"
         android:visibility="gone"
@@ -354,7 +362,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/round_corner"
         android:text="Save"
         android:visibility="gone"

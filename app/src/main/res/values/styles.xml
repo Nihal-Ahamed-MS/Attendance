@@ -13,4 +13,9 @@
         <item name="windowNoTitle">false</item>
     </style>
 
+
+    <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorTransparentWhite</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>

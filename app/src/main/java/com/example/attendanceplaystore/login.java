@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -40,6 +42,17 @@ public class login extends AppCompatActivity implements View.OnClickListener{
         name=findViewById(R.id.name);
         email=findViewById(R.id.email);
         pass=findViewById(R.id.pass);
+        pass.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    onClick(loginbtn);
+                }
+                return false;
+            }
+        });
         loginbtn=findViewById(R.id.loginbtn);
         signup=findViewById(R.id.signuptxt);
 
@@ -136,4 +149,17 @@ public class login extends AppCompatActivity implements View.OnClickListener{
                 break;
         }
     }
+    public void rootlayout(View view){
+
+        try{
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+
 }

@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -21,6 +22,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -28,6 +33,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +44,7 @@ public class HomeFragment extends Fragment {
 
     private TextView txt;
     private EditText es1,es2,es3,es4,es5,es6,es7,es8;
-    private TextView e1,e2,e3,e4,e5,e6,e7,e8;;
+    private TextView e1,e2,e3,e4,e5,e6,e7,e8;
     private FirebaseAuth mAuth;
     private Spinner spinner;
     private ArrayAdapter<CharSequence> adapter;
@@ -49,7 +55,8 @@ public class HomeFragment extends Fragment {
     private ArrayList<String> periodlist = new ArrayList<>();
 
     private ListView totperiods,totsubjects;
-
+    private AdView adView;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -57,26 +64,21 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home,container,false);
 
-//        e1=view.findViewById(R.id.e1);
-//        e2=view.findViewById(R.id.e2);
-//        e3=view.findViewById(R.id.e3);
-//        e4=view.findViewById(R.id.e4);
-//        e5=view.findViewById(R.id.e5);
-//        e6=view.findViewById(R.id.e6);
-//        e7=view.findViewById(R.id.e7);
-//        e8=view.findViewById(R.id.e8);
-//        es1=view.findViewById(R.id.es1);
-//        es2=view.findViewById(R.id.es2);
-//        es3=view.findViewById(R.id.es3);
-//        es4=view.findViewById(R.id.es4);
-//        es5=view.findViewById(R.id.es5);
-//        es6=view.findViewById(R.id.es6);
-//        es7=view.findViewById(R.id.es7);
-//        es8=view.findViewById(R.id.es8);
+        MobileAds.initialize(getActivity(),"ca-app-pub-3940256099942544/6300978111");
 
         totperiods = (ListView) view.findViewById(R.id.totperiods);
         totsubjects = (ListView) view.findViewById(R.id.totsubjects);
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        adView = (AdView) view.findViewById(R.id.adView);
+        progressBar= (ProgressBar) view.findViewById(R.id.progressbar);
+
+
+
+
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+        adView.loadAd(adRequest);
+
+
 
         final ArrayAdapter<String> periodarrays = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_list_item_1, periodlist){
 
@@ -132,8 +134,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> list, View view, int position, long id) {
 
+                progressBar.setVisibility(View.VISIBLE);
 
-                //Toast.makeText(getActivity(),list.getItemIdAtPosition(position)+"",Toast.LENGTH_LONG).show();
                 days = list.getItemIdAtPosition(position)+"";
                 if(days.equals("0")){
                     subjectlist.clear();
@@ -170,14 +172,36 @@ public class HomeFragment extends Fragment {
                     days="Saturday";
                 }
 
+                databaseReference.child("my_users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String check = dataSnapshot.getKey();
+                        if(dataSnapshot.hasChild(days)){
+
+                        }
+                        else{
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(getActivity(),"No subjects are found, Please add some subject for these days",Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
                 databaseReference.child("my_users").child(user.getUid()).child(days).addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+
                         String value = dataSnapshot.getValue(String.class);
+                        String key = dataSnapshot.getKey();
+                        progressBar.setVisibility(View.GONE);
                         subjectlist.add(value);
                         subjectarrays.notifyDataSetChanged();
-                        String key = dataSnapshot.getKey();
+
                         periodlist.add(key);
                         periodarrays.notifyDataSetChanged();
 

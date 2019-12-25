@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/logsign"
+    android:onClick="rootlayout"
     tools:context=".login">
 
     <EditText
@@ -89,18 +90,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text=" Login here!"
+            android:text="Sign here!"
             android:textColor="#0303A2"
             android:textSize="18sp" />
     </LinearLayout>
 
     <ProgressBar
-        android:visibility="gone"
         android:id="@+id/progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="372dp"
         android:layout_marginBottom="8dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
