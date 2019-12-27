@@ -107,7 +107,7 @@ public class TaskFragment extends Fragment  {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if(dataSnapshot.hasChild(dayofTheweek)){
-                                mdatabase.child("my_users").child(user.getUid()).child("Dates").child(currentdate).setValue(dayofTheweek);
+                                mdatabase.child("my_users").child(user.getUid()).child("Dates").child(currentdate);
                                 Intent intent = new Intent(getActivity(),AddAttendence.class);
                                 intent.putExtra("currentDate",currentdate);
                                 intent.putExtra("currentDay",dayofTheweek);
@@ -146,8 +146,10 @@ public class TaskFragment extends Fragment  {
                                 intent.putExtra("currentDate",currentdate);
                                 intent.putExtra("currentDay",dayofTheweek);
                                 startActivity(intent);
+
                                 progressBar.setVisibility(View.GONE);
                             }
+
                             else{
 
                                 Toast.makeText(getActivity(),"Please select a valid date, since no details available for this date.",Toast.LENGTH_LONG).show();

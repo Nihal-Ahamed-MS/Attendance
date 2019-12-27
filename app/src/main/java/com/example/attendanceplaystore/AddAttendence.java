@@ -56,7 +56,7 @@ public class AddAttendence extends AppCompatActivity {
     private int temp;
     private Button addsavebtn;
     private final DatabaseReference mdatabase = FirebaseDatabase.getInstance().getReference();
-    private Button btn;
+    private Button btn,addbackbtn;
     private CheckBox holiday;
     private AdView adView;
     private ProgressBar progressBar;
@@ -99,6 +99,7 @@ public class AddAttendence extends AppCompatActivity {
         r7=findViewById(R.id.r7);
         r8=findViewById(R.id.r8);
         progressBar = findViewById(R.id.progressbar);
+        addbackbtn = findViewById(R.id.addbackbtn);
 
         btn = findViewById(R.id.btn);
         addsavebtn = findViewById(R.id.addsavebtn);
@@ -231,6 +232,7 @@ public class AddAttendence extends AppCompatActivity {
                             }
                         }
                     });
+                    progressBar.setVisibility(View.GONE);
                     return;
                 }
 
@@ -340,9 +342,19 @@ public class AddAttendence extends AppCompatActivity {
 
                 }
                 progressBar.setVisibility(View.GONE);
+
             }
         });
 
+
+        addbackbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddAttendence.this, Dashboard.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void pickedIntent(){
