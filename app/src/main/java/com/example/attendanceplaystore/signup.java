@@ -148,6 +148,7 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
         if (name.isEmpty()){
             user.setError("A Name is required");
             user.requestFocus();
+            progressBar.setVisibility(View.GONE);
             return;
         }
         mAuth.signInWithCredential(credential)

@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -42,24 +43,24 @@ import java.util.ArrayList;
 public class AddAttendence extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private FirebaseUser user;
     private DatabaseReference databaseReference;
-    private Spinner spinner;
     private ArrayList<String> subject= new ArrayList<>();
     private ArrayList<String> period = new ArrayList<>();
     private ListView listperiod,listsubject;
-    private String days,currentdate,day;
+    private String currentdate,day;
     private int num;
     private TextView datetxt;
     private RadioButton ones,onen,twos,twon,threes,threen,fours,fourn,fives,fiven,sixs,sixn,sevens,sevenn,eights,eightn;
     private RadioGroup r1,r2,r3,r4,r5,r6,r7,r8;
-    private String[] id,rsid,rnid;
-    private int temp, rstemp,rntemp;
+    private String[] id;
+    private int temp;
     private Button addsavebtn;
     private final DatabaseReference mdatabase = FirebaseDatabase.getInstance().getReference();
     private Button btn;
     private CheckBox holiday;
     private AdView adView;
+    private ProgressBar progressBar;
+
 
 
     @Override
@@ -97,15 +98,16 @@ public class AddAttendence extends AppCompatActivity {
         r6=findViewById(R.id.r6);
         r7=findViewById(R.id.r7);
         r8=findViewById(R.id.r8);
+        progressBar = findViewById(R.id.progressbar);
 
         btn = findViewById(R.id.btn);
         addsavebtn = findViewById(R.id.addsavebtn);
         adView = (AdView) findViewById(R.id.adView);
-        MobileAds.initialize(AddAttendence.this,"ca-app-pub-3940256099942544/6300978111");
+        MobileAds.initialize(AddAttendence.this,"ca-app-pub-4618591388539179~9038242806");
 
 
 
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+        AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
         final RadioGroup[] radio = new RadioGroup[10];
@@ -212,6 +214,7 @@ public class AddAttendence extends AppCompatActivity {
         addsavebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
 
                 if(holiday.isChecked()){
                     databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("1").setValue("Holiday").addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -224,7 +227,7 @@ public class AddAttendence extends AppCompatActivity {
 
                             }
                             else{
-                                Toast.makeText(AddAttendence.this,"Something went wrong, Plesae report if it prolongs", Toast.LENGTH_LONG).show();
+                                Toast.makeText(AddAttendence.this,"Something went wrong, Please report if it prolongs", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -232,11 +235,35 @@ public class AddAttendence extends AppCompatActivity {
                 }
 
                 if(ones.isChecked()){
-                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("1").setValue("Present");
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("1").setValue("Present").addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(AddAttendence.this, "Saved, Go back to save for other days!", Toast.LENGTH_SHORT).show();
+
+                            }
+                            else{
+                                Toast.makeText(AddAttendence.this,"Something went wrong, Please report if it prolongs", Toast.LENGTH_LONG).show();
+
+                            }
+                        }
+                    });
 
                 }
                 else if(onen.isChecked()){
-                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("1").setValue("Absent");
+                    databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("1").setValue("Absent").addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(AddAttendence.this, "Saved, Go back to save for other days!", Toast.LENGTH_SHORT).show();
+
+                            }
+                            else{
+                                Toast.makeText(AddAttendence.this,"Something went wrong, Please report if it prolongs", Toast.LENGTH_LONG).show();
+
+                            }
+                        }
+                    });
                 }
                 if(twos.isChecked()){
                     databaseReference.child("my_users").child(user.getUid()).child("Dates").child(currentdate).child("2").setValue("Present");
@@ -290,7 +317,7 @@ public class AddAttendence extends AppCompatActivity {
 
                             }
                             else {
-                                Toast.makeText(AddAttendence.this,"Something went wrong, Plesae report if it prolongs", Toast.LENGTH_LONG).show();
+                                Toast.makeText(AddAttendence.this,"Something went wrong, Please report if it prolongs", Toast.LENGTH_LONG).show();
 
                             }
                         }
@@ -305,14 +332,14 @@ public class AddAttendence extends AppCompatActivity {
 
                             }
                             else{
-                                Toast.makeText(AddAttendence.this,"Something went wrong, Plesae report if it prolongs", Toast.LENGTH_LONG).show();
+                                Toast.makeText(AddAttendence.this,"Something went wrong, Please report if it prolongs", Toast.LENGTH_LONG).show();
 
                             }
                         }
                     });
 
                 }
-
+                progressBar.setVisibility(View.GONE);
             }
         });
 

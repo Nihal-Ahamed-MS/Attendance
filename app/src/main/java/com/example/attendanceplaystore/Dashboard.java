@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -13,6 +14,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Dashboard extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
+    private long backbtnpressed;
+    private Toast backtoast;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +24,7 @@ public class Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         setTitle("Home");
+
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -40,11 +45,14 @@ public class Dashboard extends AppCompatActivity {
             switch(menuItem.getItemId()){
                 case R.id.home:
                     setTitle("Home");
+
                     selectedfragment = new HomeFragment();
+
                     break;
                 case R.id.add:
                     setTitle("Add");
                     selectedfragment = new AddFragment();
+
                     break;
                 case R.id.task:
                     setTitle("Task");
@@ -61,4 +69,19 @@ public class Dashboard extends AppCompatActivity {
             return true;
         }
     };
+
+    @Override
+    public void onBackPressed() {
+
+        if(backbtnpressed +2000 > System.currentTimeMillis()){
+            backtoast.cancel();
+            super.onBackPressed();
+            return;
+        }
+        else {
+            backtoast = Toast.makeText(Dashboard.this,"Press back again to exit", Toast.LENGTH_SHORT);
+            backtoast.show();
+        }
+        backbtnpressed = System.currentTimeMillis();
+    }
 }

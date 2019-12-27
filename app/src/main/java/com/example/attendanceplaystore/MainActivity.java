@@ -141,11 +141,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void transistiontosignup(){
-        Intent intent = new Intent(MainActivity.this,signup.class);
-        startActivity(intent);
-        finish();
-    }
 
     public void transistiontosplash(){
         Intent intent = new Intent(MainActivity.this, splashscreen.class);

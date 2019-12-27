@@ -68,8 +68,8 @@ public class TaskFragment extends Fragment  {
 
         user = mAuth.getCurrentUser();
 
-        MobileAds.initialize(getActivity(),"ca-app-pub-3940256099942544/6300978111");
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+        MobileAds.initialize(getActivity(),"ca-app-pub-4618591388539179~9038242806");
+        AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
         datebtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,13 +103,31 @@ public class TaskFragment extends Fragment  {
                 @Override
                 public void onClick(View v) {
                     progressBar.setVisibility(View.VISIBLE);
-                    progressBar.setVisibility(View.VISIBLE);
-                    mdatabase.child("my_users").child(user.getUid()).child("Dates").child(currentdate).setValue(dayofTheweek);
-                    Intent intent = new Intent(getActivity(),AddAttendence.class);
-                    intent.putExtra("currentDate",currentdate);
-                    intent.putExtra("currentDay",dayofTheweek);
-                    startActivity(intent);
-                    progressBar.setVisibility(View.INVISIBLE);
+                    mdatabase.child("my_users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.hasChild(dayofTheweek)){
+                                mdatabase.child("my_users").child(user.getUid()).child("Dates").child(currentdate).setValue(dayofTheweek);
+                                Intent intent = new Intent(getActivity(),AddAttendence.class);
+                                intent.putExtra("currentDate",currentdate);
+                                intent.putExtra("currentDay",dayofTheweek);
+                                startActivity(intent);
+                                progressBar.setVisibility(View.INVISIBLE);
+
+                            }
+                            else{
+                                progressBar.setVisibility(View.INVISIBLE);
+                                Toast.makeText(getActivity(),"Please select a valid date, since no details available for this date.",Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
 
                 }
 
@@ -120,7 +138,7 @@ public class TaskFragment extends Fragment  {
                 public void onClick(View v) {
                     progressBar.setVisibility(View.VISIBLE);
 
-                    mdatabase.child("my_users").child(user.getUid()).child("Dates").child(currentdate).addValueEventListener(new ValueEventListener() {
+                    mdatabase.child("my_users").child(user.getUid()).child("Dates").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if(dataSnapshot.hasChild(currentdate)){

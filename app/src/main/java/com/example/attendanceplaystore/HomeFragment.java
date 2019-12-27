@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home,container,false);
 
-        MobileAds.initialize(getActivity(),"ca-app-pub-3940256099942544/6300978111");
+        MobileAds.initialize(getActivity(),"ca-app-pub-4618591388539179~9038242806");
 
         totperiods = (ListView) view.findViewById(R.id.totperiods);
         totsubjects = (ListView) view.findViewById(R.id.totsubjects);
@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment {
 
 
 
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+        AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
 
@@ -243,4 +243,6 @@ public class HomeFragment extends Fragment {
         return view;
 
     }
+
+
 }

@@ -56,11 +56,11 @@ public class ShowAttendence extends AppCompatActivity {
         complete = findViewById(R.id.complete);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         adView = (AdView) findViewById(R.id.adView);
-        MobileAds.initialize(ShowAttendence.this,"ca-app-pub-3940256099942544/6300978111");
+        MobileAds.initialize(ShowAttendence.this,"ca-app-pub-4618591388539179~9038242806");
 
 
 
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+        AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
         pickedIntent();
