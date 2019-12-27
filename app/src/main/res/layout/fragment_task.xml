@@ -114,7 +114,7 @@
         xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-4618591388539179~9038242806"
+        ads:adUnitId="ca-app-pub-4618591388539179/2111185459"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"

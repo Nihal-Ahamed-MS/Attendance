@@ -423,7 +423,7 @@
         android:layout_marginTop="664dp"
         android:layout_marginEnd="16dp"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-4618591388539179~9038242806"
+        ads:adUnitId="ca-app-pub-4618591388539179/2111185459"
         ads:layout_constraintHorizontal_bias="0.497"
         ads:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
