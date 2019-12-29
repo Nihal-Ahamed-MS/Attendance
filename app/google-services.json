@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:531598111492:android:749f26129f1af5d1f41651",
         "android_client_info": {
-          "package_name": "com.example.attendanceplaystore"
+          "package_name": "com.something.attendanceplaystore"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "531598111492-t8qd7s0bvr3b2u2hkh9e156t5fgdmpsb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.attendanceplaystore",
+            "package_name": "com.something.attendanceplaystore",
             "certificate_hash": "a96be3d5b6307dd47b0c3027310df6624bf02fc5"
           }
         },
