@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Version 1.0.0"
+            android:text="Version 1.0.1"
             android:textColor="#645C5C" />
 
         <LinearLayout

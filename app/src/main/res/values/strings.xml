@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Attendanceplaystore</string>
+    <string name="app_name">My-Attendance</string>
     <string-array name="days">
 
         <item>Monday</item>
