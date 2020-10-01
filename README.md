@@ -22,6 +22,10 @@ Pull Requests are welcome. Please follow these rules for the ease of understandi
 - Give me a maximum of 24-48 hours to respond
 - Have proper documentation on the parts you are changing/adding
 
+### Playstore Links 
+
+This app is also available in playsotre --> [Attendance](https://play.google.com/store/apps/details?id=com.something.attendanceplaystore)
+
 ### Devloped and maintained by
 
 📸  [Instagram](https://www.instagram.com/lucifer_the_king/?hl=en) <br />
